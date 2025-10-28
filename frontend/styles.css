@@ -894,6 +894,45 @@ body::before {
     }
 }
 
+/* Sync Button */
+.sync-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background: rgba(20, 20, 20, 0.95);
+    backdrop-filter: blur(10px);
+    border-radius: 8px;
+    padding: 20px;
+    border: 1px solid rgba(0, 150, 255, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.sync-button {
+    background: linear-gradient(135deg, #0096ff, #00ff88);
+    border: none;
+    border-radius: 6px;
+    padding: 12px 24px;
+    color: #000;
+    font-family: 'Orbitron', monospace;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.sync-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 150, 255, 0.4);
+}
+
+.sync-button:active {
+    transform: translateY(0);
+}
+
 /* Scrollbar Styling */
 ::-webkit-scrollbar {
     width: 4px;
