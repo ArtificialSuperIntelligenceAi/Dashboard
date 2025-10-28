@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>COMMAND CENTER - ANALYTICS DASHBOARD</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header -->
+        <header class="dashboard-header">
+            <div class="header-content">
+                <div class="title-section">
+                    <h1 class="dashboard-title">COMMAND CENTER</h1>
+                    <div class="subtitle">ANALYTICS DASHBOARD</div>
+                </div>
+                <div class="status-indicator">
+                    <div class="status-dot" id="connectionStatus"></div>
+                    <span class="status-text" id="statusText">INITIALIZING...</span>
+                    <span class="last-update" id="lastUpdate"></span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content Grid -->
+        <main class="dashboard-main">
+            <!-- Metrics Cards Row -->
+            <section class="metrics-section">
+                <div class="metrics-grid two-column">
+                    <!-- Current Month Accounts - Advanced Analytics Widget -->
+                    <div class="analytics-widget" id="totalAccounts">
+                        <!-- Widget Header -->
+                        <div class="widget-header">
+                            <div class="widget-title">
+                                <div class="title-icon">ACC</div>
+                                <div class="title-text">
+                                    <h3>ACCOUNTS ANALYTICS</h3>
+                                    <span class="title-subtitle">Current Month Performance</span>
+                                </div>
+                            </div>
+                            <div class="widget-status">
+                                <div class="status-indicator" id="accountsStatus">LIVE</div>
+                                <div class="last-update" id="accountsUpdate">--:--</div>
+                            </div>
+                        </div>
+
+                        <!-- Main Metrics Grid -->
+                        <div class="metrics-grid">
+                            <!-- Primary Metric -->
+                            <div class="primary-metric">
+                                <div class="metric-value" data-metric="total_accounts">-</div>
+                                <div class="metric-label">CURRENT MONTH</div>
+                                <div class="metric-change" id="accountsChange">
+                                    <span class="change-value">+0</span>
+                                    <span class="change-percent">(+0%)</span>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Metrics -->
+                            <div class="comparison-metrics">
+                                <div class="comparison-item">
+                                    <div class="comparison-label">LAST MONTH</div>
+                                    <div class="comparison-value" id="accountsLastMonth">-</div>
+                                    <div class="comparison-trend" id="accountsMonthTrend">
+                                        <span class="trend-icon">→</span>
+                                        <span class="trend-text">0%</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="comparison-label">LAST YEAR</div>
+                                    <div class="comparison-value" id="accountsLastYear">-</div>
+                                    <div class="comparison-trend" id="accountsYearTrend">
+                                        <span class="trend-icon">→</span>
+                                        <span class="trend-text">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Ring -->
+                        <div class="progress-section">
+                            <div class="progress-ring-container">
+                                <svg class="progress-ring" width="80" height="80">
+                                    <circle class="progress-ring-background" cx="40" cy="40" r="35"></circle>
+                                    <circle class="progress-ring-fill" cx="40" cy="40" r="35" id="accountsProgressRing"></circle>
+                                </svg>
+                                <div class="progress-text">
+                                    <div class="progress-current" id="accountsProgressCurrent">0</div>
+                                    <div class="progress-goal">/ 50</div>
+                                </div>
+                            </div>
+                            <div class="progress-info">
+                                <div class="progress-label">GOAL PROGRESS</div>
+                                <div class="progress-percentage" id="accountsProgressPercent">0%</div>
+                                <div class="progress-eta" id="accountsETA">ETA: -- days</div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Deals Chart -->
+                        <div class="monthly-chart">
+                            <div class="chart-header">
+                                <span class="chart-title">DAILY DEALS PROGRESSION</span>
+                                <span class="chart-period">CUMULATIVE DEALS SIGNED BY DAY</span>
+                            </div>
+                            <div class="chart-container">
+                                <svg class="deals-chart" width="100%" height="80" viewBox="0 0 400 80" id="accountsChart">
+                                    <!-- Grid lines -->
+                                    <defs>
+                                        <pattern id="grid-accounts" width="20" height="10" patternUnits="userSpaceOnUse">
+                                            <path d="M 20 0 L 0 0 0 10" fill="none" stroke="rgba(0,150,255,0.1)" stroke-width="0.5"/>
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#grid-accounts)" />
+                                    
+                                    <!-- Chart lines will be dynamically generated -->
+                                    <g id="accountsChartLines"></g>
+                                    <g id="accountsChartDots"></g>
+                                </svg>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color current"></div>
+                                    <span>THIS MONTH</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color last-month"></div>
+                                    <span>LAST MONTH</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color last-year"></div>
+                                    <span>LAST YEAR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Indicators -->
+                        <div class="performance-indicators">
+                            <div class="indicator">
+                                <div class="indicator-icon">TGT</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">TARGET</div>
+                                    <div class="indicator-value">50 DEALS</div>
+                                </div>
+                            </div>
+                            <div class="indicator">
+                                <div class="indicator-icon">PACE</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">PACE</div>
+                                    <div class="indicator-value" id="accountsPace">--/day</div>
+                                </div>
+                            </div>
+                            <div class="indicator">
+                                <div class="indicator-icon">MOM</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">MOMENTUM</div>
+                                    <div class="indicator-value" id="accountsMomentum">--</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Projected Monthly Volume - Advanced Analytics Widget -->
+                    <div class="analytics-widget" id="monthlyRevenue">
+                        <!-- Widget Header -->
+                        <div class="widget-header">
+                            <div class="widget-title">
+                                <div class="title-icon">VOL</div>
+                                <div class="title-text">
+                                    <h3>PROJECTED VOLUME</h3>
+                                    <span class="title-subtitle">Monthly Revenue Forecast</span>
+                                </div>
+                            </div>
+                            <div class="widget-status">
+                                <div class="status-indicator" id="revenueStatus">LIVE</div>
+                                <div class="last-update" id="revenueUpdate">--:--</div>
+                            </div>
+                        </div>
+
+                        <!-- Main Metrics Grid -->
+                        <div class="metrics-grid">
+                            <!-- Primary Metric -->
+                            <div class="primary-metric">
+                                <div class="metric-value" data-metric="monthly_revenue">-</div>
+                                <div class="metric-label">PROJECTED MONTH</div>
+                                <div class="metric-change" id="revenueChange">
+                                    <span class="change-value">+$0</span>
+                                    <span class="change-percent">(+0%)</span>
+                                </div>
+                            </div>
+
+                            <!-- Comparison Metrics -->
+                            <div class="comparison-metrics">
+                                <div class="comparison-item">
+                                    <div class="comparison-label">LAST MONTH</div>
+                                    <div class="comparison-value" id="revenueLastMonth">-</div>
+                                    <div class="comparison-trend" id="revenueMonthTrend">
+                                        <span class="trend-icon">→</span>
+                                        <span class="trend-text">0%</span>
+                                    </div>
+                                </div>
+                                <div class="comparison-item">
+                                    <div class="comparison-label">LAST YEAR</div>
+                                    <div class="comparison-value" id="revenueLastYear">-</div>
+                                    <div class="comparison-trend" id="revenueYearTrend">
+                                        <span class="trend-icon">→</span>
+                                        <span class="trend-text">0%</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Progress Ring -->
+                        <div class="progress-section">
+                            <div class="progress-ring-container">
+                                <svg class="progress-ring" width="80" height="80">
+                                    <circle class="progress-ring-background" cx="40" cy="40" r="35"></circle>
+                                    <circle class="progress-ring-fill" cx="40" cy="40" r="35" id="revenueProgressRing"></circle>
+                                </svg>
+                                <div class="progress-text">
+                                    <div class="progress-current" id="revenueProgressCurrent">0</div>
+                                    <div class="progress-goal">/ 1M</div>
+                                </div>
+                            </div>
+                            <div class="progress-info">
+                                <div class="progress-label">GOAL PROGRESS</div>
+                                <div class="progress-percentage" id="revenueProgressPercent">0%</div>
+                                <div class="progress-eta" id="revenueETA">ETA: -- days</div>
+                            </div>
+                        </div>
+
+                        <!-- Monthly Revenue Chart -->
+                        <div class="monthly-chart">
+                            <div class="chart-header">
+                                <span class="chart-title">DAILY REVENUE PROGRESSION</span>
+                                <span class="chart-period">CUMULATIVE VOLUME BY DAY</span>
+                            </div>
+                            <div class="chart-container">
+                                <svg class="deals-chart" width="100%" height="80" viewBox="0 0 400 80" id="revenueChart">
+                                    <!-- Grid lines -->
+                                    <defs>
+                                        <pattern id="grid-revenue" width="20" height="10" patternUnits="userSpaceOnUse">
+                                            <path d="M 20 0 L 0 0 0 10" fill="none" stroke="rgba(0,150,255,0.1)" stroke-width="0.5"/>
+                                        </pattern>
+                                    </defs>
+                                    <rect width="100%" height="100%" fill="url(#grid-revenue)" />
+                                    
+                                    <!-- Chart lines will be dynamically generated -->
+                                    <g id="revenueChartLines"></g>
+                                    <g id="revenueChartDots"></g>
+                                </svg>
+                            </div>
+                            <div class="chart-legend">
+                                <div class="legend-item">
+                                    <div class="legend-color current"></div>
+                                    <span>THIS MONTH</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color last-month"></div>
+                                    <span>LAST MONTH</span>
+                                </div>
+                                <div class="legend-item">
+                                    <div class="legend-color last-year"></div>
+                                    <span>LAST YEAR</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Performance Indicators -->
+                        <div class="performance-indicators">
+                            <div class="indicator">
+                                <div class="indicator-icon">TGT</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">TARGET</div>
+                                    <div class="indicator-value">$1M VOL</div>
+                                </div>
+                            </div>
+                            <div class="indicator">
+                                <div class="indicator-icon">PACE</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">PACE</div>
+                                    <div class="indicator-value" id="revenuePace">--/day</div>
+                                </div>
+                            </div>
+                            <div class="indicator">
+                                <div class="indicator-icon">MOM</div>
+                                <div class="indicator-text">
+                                    <div class="indicator-label">MOMENTUM</div>
+                                    <div class="indicator-value" id="revenueMomentum">--</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </section>
+
+        </main>
+
+        <!-- Notification Toast -->
+        <div class="notification-toast" id="notificationToast">
+            <div class="toast-content">
+                <div class="toast-icon">⚡</div>
+                <div class="toast-message" id="toastMessage">MISSION UPDATE DETECTED!</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
