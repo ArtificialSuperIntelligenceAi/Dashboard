@@ -68,3 +68,6 @@ Thumbs.db
 # Server files with credentials
 server.js
 config.js
+
+# Token storage
+tokens.json
